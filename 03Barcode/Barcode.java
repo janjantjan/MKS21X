@@ -1,5 +1,6 @@
 public class Barcode implements Comparable<Barcode>{
-    // instance variables
+ 
+      
     private String _zip;
     private int _checkDigit;
 
@@ -7,16 +8,17 @@ public class Barcode implements Comparable<Barcode>{
 
     public Barcode() {
 	_zip = "00000";
-	_checkDigit = 5;	   
+	_checkDigit = 0;
+	
     }
 
     public Barcode(String zip) {	
-	if (zip > 10) {
+	if (zip.length() > 10) {
 	    throw new UnsupportedOperationException("Limit Ten Digits");
 	}
 	_zip = zip;
 
-	int sum = new checksum();
+	int sum = checkSum();
 	_checkDigit = sum % 10;
     }
 
@@ -27,57 +29,59 @@ public class Barcode implements Comparable<Barcode>{
 	return clone;
     }
 
-    private int extract (String s, int index) {
-	String s = "" + zip.charAt(index);
-	Integer.parseInt(s);
+    private int extract (String str, int index) {
+	String s = "" + str.charAt(index);
+	return Integer.parseInt(s);
     }
     
     private int checkSum(){
 	int sum = 0;
-	for (int i = 0; length._zip > i; i++){
+	for (int i = 0; _zip.length() > i; i++){
 	    sum += extract (_zip, i) ;
 	}
-	return sum
+	return sum;
 	    }
     
     private String bars (int num) {
+	String code = "";
 	if (num == 1) {
-	    return ":::||" ;}
+	    code = ":::||" ;}
 	if (num == 2) {
-	    return "::|:|" ;}
+	    code = "::|:|" ;}
 	if (num == 3) {
-	    return "::||:" ;}
+	    code =  "::||:" ;}
 	if (num == 4) {
-	    return ":|::|" ;}
+	    code =  ":|::|" ;}
 	if (num == 5) {
-	    return ":|:|:" ;}
+	    code =  ":|:|:" ;}
 	if (num == 6) {
-	    return ":||::" ;}
+	    code =  ":||::" ;}
 	if (num == 7) {
-	    return "|:::|" ;}
+	    code =  "|:::|" ;}
 	if (num == 8) {
-	    return "|::|:" ;}
+	    code =  "|::|:" ;}
 	if (num == 9) {
-	    return "|:|::" ;}
+	    code =  "|:|::" ;}
 	if (num == 0) {
-	    return "||:::" ;}
+	    code = "||:::" ;}
+	return code;
     }   
 
    
     public String toString(){
 	String fin = "|";
-	for (int dig = 0; dig < length._zip; dig++){
-	    fin += bars(extract(_zip, dig);
-			}
-		fin += "|";	
-	}
+	for (int dig = 0; dig < _zip.length(); dig++)
+	    {
+		fin += bars(extract(_zip, dig));
+	    }
+	fin += "|";
 	return fin;
     }
-
-
+	
     
     public int compareTo(Barcode other){
-	(_zip + _checkDigit).compareTo (other._zip + other._checkDigit);
+	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
     
 }
+
