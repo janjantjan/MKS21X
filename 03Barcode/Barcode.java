@@ -6,11 +6,11 @@ public class Barcode implements Comparable<Barcode>{
 
    
 
-    public Barcode() {
-	_zip = "00000";
-	_checkDigit = 0;
+    // public Barcode() {
+    // 	_zip = "00000";
+    // 	_checkDigit = 0;
 	
-    }
+    // }
 
     public Barcode(String zip) {	
 	if (zip.length() > 10) {
@@ -23,11 +23,11 @@ public class Barcode implements Comparable<Barcode>{
     }
 
   
-    public Barcode clone(){
-	String zipper = _zip;
-	Barcode clone = new Barcode(zipper);
-	return clone;
-    }
+    // public Barcode clone(){
+    // 	String zipper = _zip;
+    // 	Barcode clone = new Barcode(zipper);
+    // 	return clone;
+    // }
 
     private int extract (String str, int index) {
 	String s = "" + str.charAt(index);
@@ -79,9 +79,13 @@ public class Barcode implements Comparable<Barcode>{
     }
 	
     
+    //Add toZip
+
+
     public int compareTo(Barcode other){
 	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
     
 }
 
+//Class note: Use array for bar
