@@ -19,7 +19,7 @@ public class Barcode implements Comparable<Barcode>{
     }
  
     //Helper methods
-    private int extract (String str, int index) {
+    private static  int extract (String str, int index) {
 	String s = "" + str.charAt(index);
 	return Integer.parseInt(s);
     }
@@ -30,7 +30,7 @@ public class Barcode implements Comparable<Barcode>{
 	    sum += extract (_zip, i) ;
 	}
 	return sum;
-	    }
+    }//make static
 
     private String code (int num) {
 	
@@ -50,7 +50,7 @@ public class Barcode implements Comparable<Barcode>{
     }
 	    
 
-    private String decode (String code) {
+    private static String decode (String code) {
 	String num = "";
 	for (int i = 0; i < code.length(); i++){
 	    if (!((code.charAt(i)!= ':') || (code.charAt(i)!= '|'))){
@@ -81,7 +81,7 @@ public class Barcode implements Comparable<Barcode>{
 	return num;
     }
 
-    //public methods
+    ////public methods
     public String toString(){
 	String fin = "|";
 	for (int dig = 0; dig < _zip.length(); dig++)
@@ -91,11 +91,12 @@ public class Barcode implements Comparable<Barcode>{
 	fin += "|";
 	return fin;
     }
+    ////make toCode (Static)
 	
     public String toZip(String code){
 	String zip = "";
 	if (0 != ((code.length()-2)%5)) {
-	    throw new IllegalArgumentException ("Illegal length");}
+	    throw new IllegalArgumentException ("Illegal length");}//try catch in order to keep running...
 	for (int bars = 1; bars < (code.length()-5);){
 	    String seg = code.substring(bars, bars+5);
 	    zip += decode(seg);
@@ -108,7 +109,7 @@ public class Barcode implements Comparable<Barcode>{
 	}
 	return zip;		
 		
-    }
+    }//Add missing guard rail exception...
 
 
     public  int compareTo(Barcode other){
@@ -117,3 +118,4 @@ public class Barcode implements Comparable<Barcode>{
     
 }
 
+//e.printStackTrace()
