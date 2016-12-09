@@ -3,31 +3,33 @@ public class Barcode implements Comparable<Barcode>{
     private int _checkDigit;
 
     //Constructors
+    //add exception for !5
     public Barcode(String zip) {
 	for (int i = 0; i < zip.length(); i++)
 	    try {
 		int notimp = 0;
 		notimp = extract(zip,i);
-	    }catch( IllegalArgumentException e)
+	    }catch(IllegalArgumentException e)
 		{System.out.println ("String " + zip + " contains chars other than integers");
 		    return;
 		    }
 	_zip = zip;
-	int sum = checkSum();
+	int sum = checkSum(_zip);
 	_checkDigit = sum % 10;
 	_zip += _checkDigit;
     }
  
     //Helper methods
     private static  int extract (String str, int index) {
-	String s = "" + str.charAt(index);
+	String s = "" + str.c
+harAt(index);
 	return Integer.parseInt(s);
     }
     
-    private int checkSum(){
+    private int checkSum(String zip){
 	int sum = 0;
-	for (int i = 0; _zip.length() > i; i++){
-	    sum += extract (_zip, i) ;
+	for (int i = 0; zip.length() > i; i++){
+	    sum += extract (zip, i) ;
 	}
 	return sum;
     }//make static
@@ -82,21 +84,27 @@ public class Barcode implements Comparable<Barcode>{
     }
 
     ////public methods
-    public String toString(){
+    public String toCode(String zip){
+
 	String fin = "|";
-	for (int dig = 0; dig < _zip.length(); dig++)
+	for (int dig = 0; dig < zip.length(); dig++)
 	    {
-		fin += code(extract(_zip, dig));
+		fin += code(extract(zip, dig));
 	    }
 	fin += "|";
 	return fin;
-    }
-    ////make toCode (Static)
+    }//Add exceptions
+    
 	
     public String toZip(String code){
 	String zip = "";
-	if (0 != ((code.length()-2)%5)) {
-	    throw new IllegalArgumentException ("Illegal length");}//try catch in order to keep running...
+
+	try {if (0 != ((code.length()-2)%5)) {
+		throw new IllegalArgumentException ();}
+	}catch (IllegalArgumentException e) {
+	    System.out.println ("Illegal length");
+	}
+
 	for (int bars = 1; bars < (code.length()-5);){
 	    String seg = code.substring(bars, bars+5);
 	    zip += decode(seg);
@@ -104,9 +112,12 @@ public class Barcode implements Comparable<Barcode>{
 	}
 	
 	int last = extract (zip , (zip.length()-1));
-	if (last != _checkDigit) {
+
+	try {
+	    if (last != _checkDigit) {
 	    throw new IllegalArgumentException("Invalid checkdigit:"+last);
-	}
+	    }}catch (IllegalArgumentException e) {}
+
 	return zip;		
 		
     }//Add missing guard rail exception...
@@ -116,6 +127,11 @@ public class Barcode implements Comparable<Barcode>{
 	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
     
+    public java.lang.String toString(){
+	return _zip + toCode(_zip);
+    }
+
+
 }
 
 //e.printStackTrace()
