@@ -39,7 +39,8 @@ public class Barcode implements Comparable<Barcode>{
 	return sum;
 	    }
     
-    private String code (int num) {
+    /**Class Note: Use an array
+       private String code (int num) {
 	String code = "";
 	if (num == 1) {
 	    code = ":::||" ;}
@@ -62,7 +63,25 @@ public class Barcode implements Comparable<Barcode>{
 	if (num == 0) {
 	    code = "||:::" ;}
 	return code;
+	}*/
+
+    private String code (int num) {
+	
+        String[] bars = new String[10];
+	bars[0] = "||:::";
+	bars[1] = ":::||";
+	bars[2] = "::|:|";
+	bars[3] = "::||:";
+	bars[4] = ":|::|";
+	bars[5] = ":|:|:";
+	bars[6] = ":||::";
+	bars[7] = "|:::|";
+	bars[8] = "|::|:";
+	bars[9] = "|:|::";
+
+	return bars[num];
     }
+	    
 
     private String decode (String code) {
 	String num = "";
@@ -131,4 +150,3 @@ public class Barcode implements Comparable<Barcode>{
     
 }
 
-//Class note: Use array for bar
