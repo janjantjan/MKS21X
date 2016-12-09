@@ -18,7 +18,7 @@ public class Barcode implements Comparable<Barcode>{
 		int notimp = 0;
 		notimp = extract(zip,i);
 	    }catch( IllegalArgumentException e)
-		{System.out.println ("String " + zip + " contains chars other then integers");
+		{System.out.println ("String " + zip + " contains chars other than integers");
 		    return;
 		    }
 
