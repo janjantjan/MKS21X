@@ -1,17 +1,8 @@
-public class Barcode implements Comparable<Barcode>{
- 
-      
+public class Barcode implements Comparable<Barcode>{     
     private String _zip;
     private int _checkDigit;
 
-   
-
-    // public Barcode() {
-    // 	_zip = "00000";
-    // 	_checkDigit = 0;
-	
-    // }
-
+    //Constructors
     public Barcode(String zip) {
 	for (int i = 0; i < zip.length(); i++)
 	    try {
@@ -21,20 +12,13 @@ public class Barcode implements Comparable<Barcode>{
 		{System.out.println ("String " + zip + " contains chars other than integers");
 		    return;
 		    }
-
 	_zip = zip;
 	int sum = checkSum();
 	_checkDigit = sum % 10;
 	_zip += _checkDigit;
     }
-
-  
-    // public Barcode clone(){
-    // 	String zipper = _zip;
-    // 	Barcode clone = new Barcode(zipper);
-    // 	return clone;
-    // }
-
+ 
+    //Helper methods
     private int extract (String str, int index) {
 	String s = "" + str.charAt(index);
 	return Integer.parseInt(s);
@@ -47,32 +31,6 @@ public class Barcode implements Comparable<Barcode>{
 	}
 	return sum;
 	    }
-    
-    /**Class Note: Use an array
-       private String code (int num) {
-	String code = "";
-	if (num == 1) {
-	    code = ":::||" ;}
-	if (num == 2) {
-	    code = "::|:|" ;}
-	if (num == 3) {
-	    code =  "::||:" ;}
-	if (num == 4) {
-	    code =  ":|::|" ;}
-	if (num == 5) {
-	    code =  ":|:|:" ;}
-	if (num == 6) {
-	    code =  ":||::" ;}
-	if (num == 7) {
-	    code =  "|:::|" ;}
-	if (num == 8) {
-	    code =  "|::|:" ;}
-	if (num == 9) {
-	    code =  "|:|::" ;}
-	if (num == 0) {
-	    code = "||:::" ;}
-	return code;
-	}*/
 
     private String code (int num) {
 	
@@ -123,7 +81,7 @@ public class Barcode implements Comparable<Barcode>{
 	return num;
     }
 
-   
+    //public methods
     public String toString(){
 	String fin = "|";
 	for (int dig = 0; dig < _zip.length(); dig++)
@@ -153,7 +111,7 @@ public class Barcode implements Comparable<Barcode>{
     }
 
 
-    public int compareTo(Barcode other){
+    public  int compareTo(Barcode other){
 	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
     
