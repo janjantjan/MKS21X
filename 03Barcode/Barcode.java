@@ -12,7 +12,16 @@ public class Barcode implements Comparable<Barcode>{
 	
     // }
 
-    public Barcode(String zip) {	
+    public Barcode(String zip) {
+	for (int i = 0; i < zip.length(); i++)
+	    try {
+		int notimp = 0;
+		notimp = extract(zip,i);
+	    }catch( IllegalArgumentException e)
+		{System.out.println ("String " + zip + " contains chars other then integers");
+		    return;
+		    }
+
 	_zip = zip;
 	int sum = checkSum();
 	_checkDigit = sum % 10;
