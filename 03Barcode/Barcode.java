@@ -13,13 +13,10 @@ public class Barcode implements Comparable<Barcode>{
     // }
 
     public Barcode(String zip) {	
-	if (zip.length() > 10) {
-	    throw new IllegalArgumentException("Limit Ten Digits");
-	}
 	_zip = zip;
-
 	int sum = checkSum();
 	_checkDigit = sum % 10;
+	_zip += _checkDigit;
     }
 
   
@@ -74,27 +71,27 @@ public class Barcode implements Comparable<Barcode>{
 		throw new IllegalArgumentException("Invalid characters");
 	    }
 	}
-	if (code == ":::||") {
+	if (code.equals( ":::||")) {
 	    num += 1 ;}
-	if (code == "::|:|") {
+        else if (code.equals( "::|:|")) {
 	    num += 2 ;}
-	if (code == "::||:") {
+        else if (code.equals("::||:")) {
 	    num += 3 ;}
-	if (code == ":|::|") {
+        else if (code.equals(":|::|")) {
 	    num += 4 ;}
-	if (code == ":|:|:") {
+        else if (code.equals(":|:|:")) {
 	    num += 5 ;}
-	if (code == ":||::") {
+        else if (code.equals(":||::")) {
 	    num += 6 ;}
-	if (code == "|:::|") {
+        else if (code.equals("|:::|")) {
 	    num += 7 ;}
-	if (code == "|::|:" ) {
+        else if (code.equals("|::|:")) {
 	    num += 8 ;}
-	if (code == "|:|::") {
+        else if (code.equals("|:|::")) {
 	    num += 9 ;}
-	if (code == "||:::") {
+        else if (code.equals("||:::")) {
 	    num += 0 ;}
-	else {throw new IllegalArgumentException("Unidentified Code:" + code);}
+        else {throw new IllegalArgumentException("Unidentified Code--" + code);}
 	return num;
     }
 
@@ -113,14 +110,15 @@ public class Barcode implements Comparable<Barcode>{
 	String zip = "";
 	if (0 != ((code.length()-2)%5)) {
 	    throw new IllegalArgumentException ("Illegal length");}
-	for (int bars = 1; bars < code.length(); bars++){
-	    String seg = code.substring(bars+3);
+	for (int bars = 1; bars < (code.length()-5);){
+	    String seg = code.substring(bars, bars+5);
 	    zip += decode(seg);
+	    bars= bars + 5;
 	}
 	
 	int last = extract (zip , (zip.length()-1));
 	if (last != _checkDigit) {
-	    throw new IllegalArgumentException("Invalid checkdigit");
+	    throw new IllegalArgumentException("Invalid checkdigit:"+last);
 	}
 	return zip;		
 		
