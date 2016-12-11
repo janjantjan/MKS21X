@@ -13,6 +13,12 @@ public class Barcode implements Comparable<Barcode>{
 		{System.out.println ("String " + zip + " contains chars other than integers");
 		    return;
 		    }
+	try {if (zip.length()!= 5) {
+		throw new IllegalArgumentException ();}
+	}catch (IllegalArgumentException e) {
+	    System.out.println ("Illegal zip length");
+	}
+	
 	_zip = zip;
 	int sum = checkSum(_zip);
 	_checkDigit = sum % 10;
@@ -21,12 +27,11 @@ public class Barcode implements Comparable<Barcode>{
  
     //Helper methods
     private static  int extract (String str, int index) {
-	String s = "" + str.c
-harAt(index);
+	String s = "" + str.charAt(index);
 	return Integer.parseInt(s);
     }
     
-    private int checkSum(String zip){
+    private static int checkSum(String zip){
 	int sum = 0;
 	for (int i = 0; zip.length() > i; i++){
 	    sum += extract (zip, i) ;
@@ -34,7 +39,7 @@ harAt(index);
 	return sum;
     }//make static
 
-    private String code (int num) {
+    private static String code (int num) {
 	
         String[] bars = new String[10];
 	bars[0] = "||:::";
@@ -59,39 +64,61 @@ harAt(index);
 		throw new IllegalArgumentException("Invalid characters");
 	    }
 	}
-	if (code.equals( ":::||")) {
-	    num += 1 ;}
-        else if (code.equals( "::|:|")) {
-	    num += 2 ;}
-        else if (code.equals("::||:")) {
-	    num += 3 ;}
-        else if (code.equals(":|::|")) {
-	    num += 4 ;}
-        else if (code.equals(":|:|:")) {
-	    num += 5 ;}
-        else if (code.equals(":||::")) {
-	    num += 6 ;}
-        else if (code.equals("|:::|")) {
-	    num += 7 ;}
-        else if (code.equals("|::|:")) {
-	    num += 8 ;}
-        else if (code.equals("|:|::")) {
-	    num += 9 ;}
-        else if (code.equals("||:::")) {
-	    num += 0 ;}
-        else {throw new IllegalArgumentException("Unidentified Code--" + code);}
+	try {
+	    if (code.equals( ":::||")) {
+		num += 1 ;}
+	    else if (code.equals( "::|:|")) {
+		num += 2 ;}
+	    else if (code.equals("::||:")) {
+		num += 3 ;}
+	    else if (code.equals(":|::|")) {
+		num += 4 ;}
+	    else if (code.equals(":|:|:")) {
+		num += 5 ;}
+	    else if (code.equals(":||::")) {
+		num += 6 ;}
+	    else if (code.equals("|:::|")) {
+		num += 7 ;}
+	    else if (code.equals("|::|:")) {
+		num += 8 ;}
+	    else if (code.equals("|:|::")) {
+		num += 9 ;}
+	    else if (code.equals("||:::")) {
+		num += 0 ;}
+	}catch (IllegalArgumentException e)
+	    {System.out.println ("Unidentified Code--" + code);}
+
 	return num;
     }
 
     ////public methods
-    public String toCode(String zip){
-
+    public static String toCode(String zip){
+	int sum = checkSum(zip);
+	int checkDigit = sum % 10;
+	zip += checkDigit ;
+	//*******************************************************8
+	for (int i = 0; i < zip.length(); i++)
+	    try {
+		int notimp = 0;
+		notimp = extract(zip,i);
+	    }catch(IllegalArgumentException e)
+		{System.out.println ("String " + zip + " contains chars other than integers");}
+    
+	try {if (zip.length()!= 6) {
+		throw new IllegalArgumentException ();}
+	}catch (IllegalArgumentException e) {
+	    System.out.println ("Illegal zip length");
+	}
 	String fin = "|";
 	for (int dig = 0; dig < zip.length(); dig++)
 	    {
 		fin += code(extract(zip, dig));
 	    }
+	
+	
 	fin += "|";
+
+	
 	return fin;
     }//Add exceptions
     
@@ -99,10 +126,10 @@ harAt(index);
     public String toZip(String code){
 	String zip = "";
 
-	try {if (0 != ((code.length()-2)%5)) {
+	try {if (code.length()!= 32) {
 		throw new IllegalArgumentException ();}
 	}catch (IllegalArgumentException e) {
-	    System.out.println ("Illegal length");
+	    System.out.println ("Illegal code length");
 	}
 
 	for (int bars = 1; bars < (code.length()-5);){
@@ -127,8 +154,10 @@ harAt(index);
 	return (_zip + _checkDigit).compareTo(other._zip + other._checkDigit);
     }
     
-    public java.lang.String toString(){
-	return _zip + toCode(_zip);
+    public String toString(){
+	if ((_zip.charAt(0) == '|' )|| (_zip.charAt(0) == ':')){
+	    return _zip;}
+	else{ return _zip + " " + toCode(_zip);}
     }
 
 
