@@ -16,7 +16,8 @@ public class Barcode implements Comparable<Barcode>{
 	try {if (zip.length()!= 5) {
 		throw new IllegalArgumentException ();}
 	}catch (IllegalArgumentException e) {
-	    System.out.println ("Illegal zip length");
+	    System.out.println ("Illegal zip length>> " + zip.substring(0,zip.length()) + " ZL: " + zip.length());
+	    
 	}
 	
 	_zip = zip;
@@ -26,6 +27,12 @@ public class Barcode implements Comparable<Barcode>{
     }
  
     //Helper methods
+
+    // private static zipChecker (String zip) {
+
+    
+    // }
+    
     private static  int extract (String str, int index) {
 	String s = "" + str.charAt(index);
 	return Integer.parseInt(s);
@@ -93,10 +100,18 @@ public class Barcode implements Comparable<Barcode>{
 
     ////public methods
     public static String toCode(String zip){
+	try {if (zip.length()!= 6) {
+		throw new IllegalArgumentException ();}
+	}catch (IllegalArgumentException e) {
+	   return ("Illegal zip length>> " + zip.substring(0,(zip.length()-1)) + " ZL: " + (zip.length()-1));
+	   
+	}
+
 	int sum = checkSum(zip);
 	int checkDigit = sum % 10;
 	zip += checkDigit ;
-	//*******************************************************8
+	
+	
 	for (int i = 0; i < zip.length(); i++)
 	    try {
 		int notimp = 0;
@@ -104,26 +119,16 @@ public class Barcode implements Comparable<Barcode>{
 	    }catch(IllegalArgumentException e)
 		{System.out.println ("String " + zip + " contains chars other than integers");}
     
-	try {if (zip.length()!= 6) {
-		throw new IllegalArgumentException ();}
-	}catch (IllegalArgumentException e) {
-	    System.out.println ("Illegal zip length");
-	}
 	String fin = "|";
 	for (int dig = 0; dig < zip.length(); dig++)
-	    {
-		fin += code(extract(zip, dig));
-	    }
-	
-	
+	    {fin += code(extract(zip, dig));}	
 	fin += "|";
-
 	
 	return fin;
-    }//Add exceptions
+    }
     
 	
-    public String toZip(String code){
+    public static String toZip(String code){
 	String zip = "";
 
 	try {if (code.length()!= 32) {
@@ -140,14 +145,23 @@ public class Barcode implements Comparable<Barcode>{
 	
 	int last = extract (zip , (zip.length()-1));
 
+	int sum = checkSum(zip);
+	int checkDigit = sum % 10;
+	zip += checkDigit;
+
 	try {
-	    if (last != _checkDigit) {
-	    throw new IllegalArgumentException("Invalid checkdigit:"+last);
-	    }}catch (IllegalArgumentException e) {}
+	    if (last != checkDigit) {
+	    throw new IllegalArgumentException();
+	    }}catch (IllegalArgumentException e)
+	    {System.out.println ("Invalid check digit: " + last);}
 
 	return zip;		
 		
-    }//Add missing guard rail exception...
+    }
+
+    /**Add missing guard rail exception...checksum is invalid
+       ...encoded ints are invalid      
+       .the left and rigthmost charcters are not '|'*/
 
 
     public  int compareTo(Barcode other){
