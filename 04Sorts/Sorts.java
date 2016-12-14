@@ -18,17 +18,35 @@ public class Sorts{
 	}
     }
 
-   
-    public static String toString(int[] data){
-	String x = "[ ";
-	for(int i = 0; i < data.length; i++){
-	    if (i < data.length-1){
-		x = x + data[i] + ", ";
+    public static void   insertionSort(int[]data){
+	int smaller=0;
+	for (int half = data.length / 2;half < data.length; half++){
+	    for (int i = half -1 ; i > 0; i--){
+	            smaller = data [half];
+		    System.out.println(smaller+ "is half");
+		if (data[half] < data [i]) {   
+		    data[half] = data[i];
+		    data [i] = smaller;
+		}
 	    }
-	    else { x = x + data[data.length-1] + "]";}
 	}
-	return x;
     }
+    
+
+   
+	public static String toString(int[] data){
+	    String x = "[ ";
+	    for(int i = 0; i < data.length; i++){
+		if (i < data.length-1){
+		    x = x + data[i] + ", ";
+		}
+		else { x = x + data[data.length-1] + "]";}
+	    }
+	    return x;
+	}
+
+    
+    
 
 
     public static void main(String[] args) {
@@ -52,21 +70,21 @@ public class Sorts{
 
 
 	int [] C = new int[5];
-	C[0]=9;
-	C[1]=4;
-	C[2]=5;
-	C[3]=-2;
-	C[4]=7;
-	selectionSort(C);
+	C[0]=1;
+	C[1]=3;
+	C[2]=4;
+	C[3]=5;
+	C[4]=2;
+        insertionSort(C);
 	System.out.println (toString(C));
 
 	int [] D = new int[5];
 	D[0]=99;
 	D[1]=999;
-	D[2]=9;
+	D[2]=1000;
 	D[3]=0;
 	D[4]=-999;
-	selectionSort(D);
+	insertionSort(D);
 	System.out.println (toString(D));
     }
 
