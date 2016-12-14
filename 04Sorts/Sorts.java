@@ -40,7 +40,37 @@ public class Sorts{
 	A[4]=7;
 	selectionSort(A);
 	System.out.println (toString(A));
+
+	int [] B = new int[5];
+	B[0]=9;
+	B[1]=9;
+	B[2]=5;
+	B[3]=1;
+	B[4]=1;
+	selectionSort(B);
+	System.out.println (toString(B));
+
+
+	int [] C = new int[5];
+	C[0]=9;
+	C[1]=4;
+	C[2]=5;
+	C[3]=-2;
+	C[4]=7;
+	selectionSort(C);
+	System.out.println (toString(C));
+
+	int [] D = new int[5];
+	D[0]=99;
+	D[1]=999;
+	D[2]=9;
+	D[3]=0;
+	D[4]=-999;
+	selectionSort(D);
+	System.out.println (toString(D));
     }
+
+    
 }
 
 
