@@ -100,25 +100,24 @@ public class Barcode implements Comparable<Barcode>{
 
     ////public methods
     public static String toCode(String zip){
-	try {if (zip.length()!= 6) {
+	try {if (zip.length()!= 5) {
 		throw new IllegalArgumentException ();}
 	}catch (IllegalArgumentException e) {
 	   return ("Illegal zip length>> " + zip.substring(0,(zip.length()-1)) + " ZL: " + (zip.length()-1));
 	   
 	}
-
-	int sum = checkSum(zip);
-	int checkDigit = sum % 10;
-	zip += checkDigit ;
-	
-	
+    
 	for (int i = 0; i < zip.length(); i++)
 	    try {
 		int notimp = 0;
 		notimp = extract(zip,i);
 	    }catch(IllegalArgumentException e)
 		{System.out.println ("String " + zip + " contains chars other than integers");}
-    
+
+	int sum = checkSum(zip);
+	int checkDigit = sum % 10;
+	zip += checkDigit ;
+	
 	String fin = "|";
 	for (int dig = 0; dig < zip.length(); dig++)
 	    {fin += code(extract(zip, dig));}	
@@ -134,7 +133,7 @@ public class Barcode implements Comparable<Barcode>{
 	try {if (code.length()!= 32) {
 		throw new IllegalArgumentException ();}
 	}catch (IllegalArgumentException e) {
-	    System.out.println ("Illegal code length");
+	    System.out.println ("Illegal code length"+ code + "(" + code.length() + ")");
 	}
 
 	for (int bars = 1; bars < (code.length()-5);){
@@ -147,7 +146,7 @@ public class Barcode implements Comparable<Barcode>{
 
 	int sum = checkSum(zip);
 	int checkDigit = sum % 10;
-	zip += checkDigit;
+	
 
 	try {
 	    if (last != checkDigit) {
