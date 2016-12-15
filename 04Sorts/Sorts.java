@@ -34,9 +34,26 @@ public class Sorts{
 	    }
 	}
     }
-    
 
-   
+    public static void bubbleSort (int[]data){
+	for (int i = 0; i < data.length ; i++) {
+	    for (int j = 0; j < data.length-1; j++) {
+		int next = j + 1;
+		if (data[j] > data[next]) {
+		    switcher(data, j, next);}
+	       	
+	    }
+	}
+    }//alter to terminate after no more switches
+
+
+
+    public static void switcher (int[]data,int a,int  b){
+	int holder = data[a];
+	data[a] = data[b];
+	data[b] = holder;
+    }
+		    
 	public static String toString(int[] data){
 	    String x = "[ ";
 	    for(int i = 0; i < data.length; i++){
@@ -49,7 +66,8 @@ public class Sorts{
 	}
 
     
-    
+    // public static long
+    // 	System.currentTimeMillis
 
 
     public static void main(String[] args) {
@@ -78,7 +96,7 @@ public class Sorts{
 	C[2]=4;
 	C[3]=5;
 	C[4]=2;
-        insertionSort(C);
+        bubbleSort(C);
 	System.out.println (toString(C));
 
 	int [] D = new int[5];
