@@ -19,14 +19,17 @@ public class Sorts{
     }
 
     public static void   insertionSort(int[]data){
-	int smaller=0;
-	for (int half = data.length / 2;half < data.length; half++){
-	    for (int i = half -1 ; i > 0; i--){
-	            smaller = data [half];
-		    System.out.println(smaller+ "is half");
-		if (data[half] < data [i]) {   
-		    data[half] = data[i];
+
+	for (int half = (data.length / 2);half < data.length; half++){
+	    int smaller = data [half];
+	    int placeholder = half;
+	    
+	    for (int i = half -1 ; i >= 0; i--){   
+		if (smaller < data [i]) {
+		   
+		    data[placeholder] = data[i];
 		    data [i] = smaller;
+		    placeholder--;
 		}
 	    }
 	}
@@ -50,7 +53,7 @@ public class Sorts{
 
 
     public static void main(String[] args) {
-	int [] A = new int[5];
+      	int [] A = new int[5];
 	A[0]=9;
 	A[1]=4;
 	A[2]=5;
@@ -68,7 +71,7 @@ public class Sorts{
 	selectionSort(B);
 	System.out.println (toString(B));
 
-
+	
 	int [] C = new int[5];
 	C[0]=1;
 	C[1]=3;
