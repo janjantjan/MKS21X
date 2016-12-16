@@ -8,6 +8,7 @@ public class Sorts{
     public static void selectionSort(int[] data){ 
 	for (int i = 0; i < data.length; i++){          
 	    int smallest = data[i];
+	   
 	    for (int j = i+1; j < data.length; j++){
 		if (data[j]<data[i]){
 		    smallest = data [j];
@@ -17,8 +18,9 @@ public class Sorts{
 	    }
 	}
     }
+    //minIndex
 
-    public static void   insertionSort(int[]data){
+    public static void insertionSort(int[]data){
 
 	for (int half = (data.length / 2);half < data.length; half++){
 	    int smaller = data [half];
@@ -33,20 +35,25 @@ public class Sorts{
 		}
 	    }
 	}
-    }
+    }//fix: not always half tho! Use for and while loop "int old data[i], int index=i" 
 
     public static void bubbleSort (int[]data){
-	for (int i = 0; i < data.length ; i++) {
+	//+boolean swapped
+	// outer loop from end to beginning start with false. 
+	for (int i = 0; i < data.length ; i++) {// &&swapped... fixed 
 	    for (int j = 0; j < data.length-1; j++) {
 		int next = j + 1;
 		if (data[j] > data[next]) {
-		    switcher(data, j, next);}
+		    switcher(data, j, next);
+		    //swapped = true}
 	       	
+		}
 	    }
-	}
-    }//alter to terminate after no more switches
+	}//alter to terminate after no more switches
 
-
+	//Alt algorithm involves a while loop."while (swapped)" Try to do at home
+	
+    }
 
     public static void switcher (int[]data,int a,int  b){
 	int holder = data[a];
