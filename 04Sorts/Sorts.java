@@ -37,6 +37,12 @@ public class Sorts{
 	}
     }//fix: not always half tho! Use for and while loop "int old data[i], int index=i" 
 
+
+    public static void altInsertionSort(int[]data){
+
+
+    }
+    
     public static void bubbleSort (int[]data){
 	//+boolean swapped
 	// outer loop from end to beginning start with false. 
@@ -73,8 +79,7 @@ public class Sorts{
 	}
 
     
-    // public static long
-    // 	System.currentTimeMillis
+    
 
 
     public static void main(String[] args) {
