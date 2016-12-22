@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-public class Int extends JFrame {
+public class Int extends JFrame implements ActionListener{
     private Container pane;
     private JButton toC;
     private JButton toF;
@@ -12,7 +12,7 @@ public class Int extends JFrame {
     //CONSTRUCTOR SETS EVERYTHING UP
     public Int () {
 	this.setTitle("Temperature Converter");
-	this.setSize(600,400);
+	this.setSize(600,600);
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -25,19 +25,36 @@ public class Int extends JFrame {
 	Celcius = new JLabel ("Celcius",null,JLabel.CENTER);
         inputC = new JTextField(12);
 	
-	pane.add(toC);
-	pane.add(toF);
-	pane.add(Celcius);
+
 	pane.add(Fahrenheit);
-	pane.add(inputC);
 	pane.add(inputF);
+	pane.add(toC);
+	
+	pane.add(Celcius);
+	pane.add(inputC);
+	pane.add(toF);
+	
+	// private void actionPerformed(java.awt.event.ActionEvent evt){
+	//     inputF.setText("hi");
+	// }
 
- }
+    }
+    
+    toC.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		System.out.println("I was clicked!");
+	    }
+	});
+       
+     
 
-  //MAIN JUST INSTANTIATES + MAKE VISIBLE
-  public static void main(String[] args) {
-     Int g = new Int();
-     g.setVisible(true);
-  }
+    
+
+    //MAIN JUST INSTANTIATES + MAKE VISIBLE
+    public static void main(String[] args) {
+	Int g = new Int();
+	g.setVisible(true);
+    }
 }
 
